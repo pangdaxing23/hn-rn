@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import Row from './Components/Row'
 
 let rows = [];
-let ids;
 let i = 0;
 
 const fetchIds = async () =>
@@ -13,7 +13,7 @@ const fetchRow = async (id) =>
 
 async function fetchRows() {
   try {
-    ids = await fetchIds()
+    let ids = await fetchIds()
     ids.forEach(async (id) => {
       try {
         let response = await fetchRow(id)
@@ -36,20 +36,7 @@ const extractKey = ({id}) => id
 export default class App extends Component {
   renderItem = ({item}) => {
       return (
-        <View style={styles.row}>
-          <Text style={styles.title}>
-            {item.title}
-          </Text>
-          <View style={styles.meta}>
-            <Text style={styles.score}>
-              {item.score} points
-            </Text>
-            <Text style={styles.comments}>
-              {item.descendants} comments
-            </Text>
-          </View>
-
-        </View>
+        <Row item={item} />
       )
     }
 
