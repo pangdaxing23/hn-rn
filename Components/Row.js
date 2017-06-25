@@ -1,24 +1,30 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
 
-const Row = ({item}) => {
+const Row = ({item, onPress}) => {
+
   return (
-    <View style={styles.row}>
-      <Text style={styles.title}>
-        {item.title}
-      </Text>
-      <View style={styles.meta}>
-        <Text style={styles.score}>
-          {item.score} points
+    <TouchableHighlight
+      onPress={onPress}
+      underlayColor='white'
+      style={styles.row}
+      >
+      <View>
+        <Text style={styles.title}>
+          {item.title}
         </Text>
-        <Text style={styles.comments}>
-          {item.descendants} comments
-        </Text>
+        <View style={styles.meta}>
+          <Text style={styles.score}>
+            {item.score} points
+          </Text>
+          <Text style={styles.comments}>
+            {item.descendants} comments
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableHighlight>
   )
 }
-
 
 const styles = StyleSheet.create({
   row: {
