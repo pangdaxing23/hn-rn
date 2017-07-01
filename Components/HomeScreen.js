@@ -10,31 +10,31 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {rows: []}
+    this.state = {posts: []}
   }
 
-  componentDidMount() {
-    this.fetchRows().then(rows => {
-      this.setState({
-        'rows': rows
-      })
-    })
+  async componentDidMount() {
+    await this.fetchRows()
   }
 
-  fetchIds = async () =>
-  	(await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')).json()
+  fetchIds = async () => {
+    return (await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')).json()
+  }
 
-  fetchRow = async (id) =>
-    (await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)).json()
+  fetchRow = async (id) => {
+    return (await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)).json()
+  }
 
   fetchRows = async () => {
-    let rows = []
-    let i = 0
     try {
       let ids = await this.fetchIds()
-      ids.forEach(async (id) => {
+      let rows = []
+      ids.forEach(async (id, i) => {
         try {
-          rows[i++] = await this.fetchRow(id)
+          rows[i] = await this.fetchRow(id)
+          this.setState((prevState) => {
+            return {posts: rows}
+          })
         }
         catch (reason) {
           Alert.alert(reason.message)
@@ -47,29 +47,27 @@ export default class HomeScreen extends Component {
     }
   }
 
-  extractKey = ({id}) => id
-
-
-  _onPressButton = e => {
+  onPress = (e) => {
     const { navigate } = this.props.navigation
     navigate('Comments')
   }
 
+  extractKey = ({id}) => id
+
   renderItem = ({item}) => {
-      return (
-        <Row
-          item={item}
-          onPress={this._onPressButton}
-        />
-      )
-    }
+    return (
+      <Row
+        item={item}
+        onPress={this.onPressRow}
+      />
+    )
+  }
 
   render() {
-
     return (
       <FlatList
         style={styles.container}
-        data={this.state.rows}
+        data={this.state.posts}
         renderItem={this.renderItem}
         keyExtractor={this.extractKey}
       />

@@ -3,14 +3,14 @@ import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
 
 export default class CommentsScreen extends Component {
 
-  static navigationOptions = {
-    title: 'Comments',
-  }
+  static navigationOptions = ({navigation}) => ({
+    title: navigation.state.params.item.title
+  })
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>COMMENTS COMMENTS COMMENTS</Text>
+        <Text>Hello</Text>
       </View>
     )
   }

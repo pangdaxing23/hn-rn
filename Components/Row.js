@@ -1,29 +1,35 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
 
-const Row = ({item, onPress}) => {
+export default class Row extends Component {
 
-  return (
-    <TouchableHighlight
-      onPress={onPress}
-      underlayColor='white'
-      style={styles.row}
-      >
-      <View>
-        <Text style={styles.title}>
-          {item.title}
-        </Text>
-        <View style={styles.meta}>
-          <Text style={styles.score}>
-            {item.score} points
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return (
+      <TouchableHighlight
+        onPress={this.props.onPress}
+        underlayColor='white'
+        style={styles.row}
+        >
+        <View>
+          <Text style={styles.title}>
+            {this.props.item.title}
           </Text>
-          <Text style={styles.comments}>
-            {item.descendants} comments
-          </Text>
+          <View style={styles.meta}>
+            <Text style={styles.score}>
+              {this.props.item.score} points
+            </Text>
+            <Text style={styles.comments}>
+              {this.props.item.descendants} comments
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableHighlight>
-  )
+      </TouchableHighlight>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -49,5 +55,3 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
 })
-
-export default Row

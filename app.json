@@ -1,6 +1,8 @@
 {
   "expo": {
-    "name": "HN",
-    "sdkVersion": "17.0.0"
+    "name": "HN RN",
+    "slug": "hn-rn",
+    "sdkVersion": "17.0.0",
+    "privacy": "unlisted"
   }
 }
