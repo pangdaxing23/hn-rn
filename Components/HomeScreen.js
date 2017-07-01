@@ -13,7 +13,7 @@ export default class HomeScreen extends Component {
     this.state = {posts: []}
   }
 
-  async componentDidMount() {
+  async componentWillMount() {
     await this.fetchRows()
   }
 
@@ -28,7 +28,10 @@ export default class HomeScreen extends Component {
   fetchRows = async () => {
     try {
       let ids = await this.fetchIds()
-      let rows = []
+      // fill rows with objects with incrementing ids
+      let rows = [...Array(500).keys()].map(el => {
+        return {id: el}
+      })
       ids.forEach(async (id, i) => {
         try {
           rows[i] = await this.fetchRow(id)
