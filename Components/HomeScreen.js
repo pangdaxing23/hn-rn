@@ -30,7 +30,12 @@ export default class HomeScreen extends Component {
       let ids = await this.fetchIds()
       // fill rows with objects with incrementing ids
       let rows = [...Array(500).keys()].map(el => {
-        return {id: el}
+        return {
+          id: el,
+          title: '',
+          score: '-',
+          descendants: '-'
+        }
       })
       ids.forEach(async (id, i) => {
         try {
@@ -50,18 +55,13 @@ export default class HomeScreen extends Component {
     }
   }
 
-  onPress = (e) => {
-    const { navigate } = this.props.navigation
-    navigate('Comments')
-  }
-
   extractKey = ({id}) => id
 
   renderItem = ({item}) => {
     return (
       <Row
         item={item}
-        onPress={this.onPressRow}
+        nav={this.props.navigation}
       />
     )
   }

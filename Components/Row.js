@@ -7,13 +7,18 @@ export default class Row extends Component {
     super(props)
   }
 
+  onPressRow = (e) => {
+    const { navigate } = this.props.nav
+    navigate('Comments', {item: this.props.item})
+  }
+
   render() {
     return (
       <TouchableHighlight
-        onPress={this.props.onPress}
+        onPress={this.onPressRow}
         underlayColor='white'
         style={styles.row}
-        >
+      >
         <View>
           <Text style={styles.title}>
             {this.props.item.title}
