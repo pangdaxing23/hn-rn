@@ -24,11 +24,11 @@ export default class HomeScreen extends Component {
     return (await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')).json()
   }
 
-  fetchRow = async (id) => {
+  fetchItem = async (id) => {
     return (await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)).json()
   }
 
-  fetchRows = async () => {
+  fetchItems = async () => {
     try {
       let ids = await this.fetchIds()
       // fill rows with objects with incrementing ids
@@ -42,7 +42,7 @@ export default class HomeScreen extends Component {
       })
       ids.forEach(async (id, i) => {
         try {
-          rows[i] = await this.fetchRow(id)
+          rows[i] = await this.fetchItem(id)
           this.setState((prevState) => {
             return {posts: rows}
           })
@@ -71,16 +71,17 @@ export default class HomeScreen extends Component {
 
   _onRefresh = async () => {
     this.setState({refreshing: true})
-    await this.fetchRows()
+    await this.fetchItems()
     this.setState({refreshing: false})
   }
 
   render() {
+    const {posts, refreshing} = this.state
     return (
       <FlatList
         style={styles.container}
-        data={this.state.posts}
-        refreshing={this.state.refreshing}
+        data={posts}
+        refreshing={refreshing}
         onRefresh={this._onRefresh}
         renderItem={this.renderItem}
         keyExtractor={this.extractKey}
@@ -92,7 +93,6 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f6f6ef',
-    marginTop: 20
+    backgroundColor: '#f6f6ef'
   },
 })
