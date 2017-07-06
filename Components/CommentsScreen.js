@@ -1,29 +1,81 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, FlatList, Alert } from 'react-native'
 import TopSection from './TopSection'
+import HTMLView from 'react-native-htmlview'
 
 export default class CommentsScreen extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {'comments': []}
+  }
 
   static navigationOptions = ({navigation}) => ({
     title: 'Comments'
   })
 
+  async componentWillMount() {
+    await this.fetchComments()
+  }
+
+  fetchComment = async (id) => {
+    return (await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)).json()
+  }
+
   fetchComments = async () => {
-    let comments = [...Array(this.props).keys()].map(el => {
-      return {
-        id: el,
-        title: '',
-        score: '-',
-        descendants: '-'
-      }
-    })
+    try {
+      let {kids, descendants} = this.props.navigation.state.params.item
+      // fill comments with objects with incrementing ids
+      let comments = [...Array(descendants).keys()].map(el => {
+        return {
+          id: el,
+          by: '-',
+          text: '',
+          time: '-'
+        }
+      })
+      kids.forEach(async (id, i) => {
+        try {
+          comments[i] = await this.fetchComment(id)
+          this.setState((prevState) => {
+            return {'comments': comments}
+          })
+        }
+        catch (reason) {
+          Alert.alert(reason.message)
+        }
+      })
+      return comments
+    }
+    catch (reason) {
+      Alert.alert(reason.message)
+    }
+  }
+
+  extractKey = ({id}) => id
+
+  renderItem = ({item}) => {
+    return (
+      <View>
+      <HTMLView value={item.text} />
+      <Text>{item.by}</Text>
+      </View>
+    )
   }
 
   render() {
     const {item} = this.props.navigation.state.params
     return (
       <View style={styles.container}>
-        <TopSection item={item} />
+        <TopSection item={item}
+                    style={styles.topSection}/>
+        <FlatList
+          style={styles.list}
+          data={this.state.comments}
+          renderItem={this.renderItem}
+          keyExtractor={this.extractKey}
+        />
       </View>
     )
   }
@@ -32,7 +84,11 @@ export default class CommentsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#f6f6ef',
+    marginTop: 20
+  },
+  list: {
+    flex: 3,
     backgroundColor: '#f6f6ef',
     marginTop: 20
   },

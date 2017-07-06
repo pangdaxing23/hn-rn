@@ -10,11 +10,14 @@ export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {posts: []}
+    this.state = {
+      posts: [],
+      refreshing: false
+    }
   }
 
   async componentWillMount() {
-    await this.fetchRows()
+    this._onRefresh()
   }
 
   fetchIds = async () => {
@@ -66,11 +69,19 @@ export default class HomeScreen extends Component {
     )
   }
 
+  _onRefresh = async () => {
+    this.setState({refreshing: true})
+    await this.fetchRows()
+    this.setState({refreshing: false})
+  }
+
   render() {
     return (
       <FlatList
         style={styles.container}
         data={this.state.posts}
+        refreshing={this.state.refreshing}
+        onRefresh={this._onRefresh}
         renderItem={this.renderItem}
         keyExtractor={this.extractKey}
       />
