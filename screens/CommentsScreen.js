@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, FlatList, Alert } from 'react-native'
-import TopSection from '../components/TopSection'
-import { WebBrowser } from 'expo'
-import HTMLView from 'react-native-htmlview'
+import Comments from '../components/Comments'
 
 export default class CommentsScreen extends Component {
 
@@ -26,9 +23,9 @@ export default class CommentsScreen extends Component {
       let comments = [...Array(descendants).keys()].map(el => {
         return {
           id: el,
-          by: '-',
+          by: '',
           text: '',
-          time: '-'
+          time: ''
         }
       })
       kids.forEach(async (id, i) => {
@@ -49,60 +46,12 @@ export default class CommentsScreen extends Component {
     }
   }
 
-  _handlePressButtonAsync = async (url) => {
-    let result = await WebBrowser.openBrowserAsync(url);
-  }
-
-  extractKey = ({id}) => id
-
-  _renderItem = ({item}) => {
-    const {text, by} = item
-    return (
-      <View style={styles.listItem}>
-        <HTMLView value={text} />
-        <Text>{by}</Text>
-      </View>
-    )
-  }
-
   render() {
-    const {title, by, score, url} = this.props.navigation.state.params
     return (
-      <View style={styles.container}>
-        <TopSection
-          title={title}
-          by={by}
-          score={score}
-          onPress={() => this._handlePressButtonAsync(url)}
-          style={styles.topSection}
-        />
-        <FlatList
-          data={this.state.comments}
-          renderItem={this._renderItem}
-          keyExtractor={this.extractKey}
-          style={styles.list}
-        />
-      </View>
+      <Comments
+        post={this.props.navigation.state.params}
+        comments={this.state.comments}
+      />
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f6f6ef',
-    padding: 20,
-  },
-  topSection: {
-    flex: 1,
-    padding: 20
-  },
-  list: {
-    flex: 3,
-    marginTop: 20,
-    backgroundColor: '#f6f6ef',
-  },
-  listItem: {
-    backgroundColor: '#f6f6ef'
-  },
-})
