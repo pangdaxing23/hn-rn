@@ -54,13 +54,17 @@ export default class HomeScreen extends Component {
     }
   }
 
+  onPressRow = (item) => {
+    this.props.navigation.navigate('Comments', item)
+  }
+
   extractKey = ({id}) => id
 
   renderItem = ({item}) => {
     return (
       <Row
         item={item}
-        nav={this.props.navigation}
+        onPress={() => this.onPressRow(item)}
       />
     )
   }

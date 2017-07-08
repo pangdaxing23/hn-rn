@@ -21,7 +21,7 @@ export default class CommentsScreen extends Component {
 
   fetchComments = async () => {
     try {
-      let {kids, descendants} = this.props.navigation.state.params.item
+      let {kids, descendants} = this.props.navigation.state.params
       // fill comments with objects with incrementing ids
       let comments = [...Array(descendants).keys()].map(el => {
         return {
@@ -61,7 +61,7 @@ export default class CommentsScreen extends Component {
   }
 
   render() {
-    const {item} = this.props.navigation.state.params
+    const item = this.props.navigation.state.params
     return (
       <View style={styles.container}>
         <TopSection item={item}

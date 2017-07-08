@@ -1,40 +1,29 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
 
-export default class Row extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
-  onPressRow = (e) => {
-    const { navigate } = this.props.nav
-    navigate('Comments', {item: this.props.item})
-  }
-
-  render() {
-    return (
-      <TouchableHighlight
-        onPress={this.onPressRow}
-        underlayColor='white'
-        style={styles.row}
-      >
-        <View>
-          <Text style={styles.title}>
-            {this.props.item.title}
+const Row = (props) => {
+  const { title, score, descendants } = props.item
+  return (
+    <TouchableHighlight
+      onPress={props.onPress}
+      underlayColor='white'
+      style={styles.row}
+    >
+      <View>
+        <Text style={styles.title}>
+          {title}
+        </Text>
+        <View style={styles.meta}>
+          <Text style={styles.score}>
+            {score} points
           </Text>
-          <View style={styles.meta}>
-            <Text style={styles.score}>
-              {this.props.item.score} points
-            </Text>
-            <Text style={styles.comments}>
-              {this.props.item.descendants} comments
-            </Text>
-          </View>
+          <Text style={styles.comments}>
+            {descendants} comments
+          </Text>
         </View>
-      </TouchableHighlight>
-    )
-  }
+      </View>
+    </TouchableHighlight>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -60,3 +49,5 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
 })
+
+export default Row
