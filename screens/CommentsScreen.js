@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, FlatList, Alert } from 'react-native'
 import TopSection from '../components/TopSection'
+import { WebBrowser } from 'expo'
 import HTMLView from 'react-native-htmlview'
 
 export default class CommentsScreen extends Component {
@@ -48,32 +49,38 @@ export default class CommentsScreen extends Component {
     }
   }
 
+  _handlePressButtonAsync = async (url) => {
+    let result = await WebBrowser.openBrowserAsync(url);
+  }
+
   extractKey = ({id}) => id
 
   _renderItem = ({item}) => {
+    const {text, by} = item
     return (
-      <View>
-        <HTMLView value={item.text} />
-        <Text>{item.by}</Text>
+      <View style={styles.listItem}>
+        <HTMLView value={text} />
+        <Text>{by}</Text>
       </View>
     )
   }
 
   render() {
-    const {title, by, score} = this.props.navigation.state.params
+    const {title, by, score, url} = this.props.navigation.state.params
     return (
       <View style={styles.container}>
         <TopSection
           title={title}
           by={by}
           score={score}
+          onPress={() => this._handlePressButtonAsync(url)}
           style={styles.topSection}
         />
         <FlatList
-          style={styles.list}
           data={this.state.comments}
           renderItem={this._renderItem}
           keyExtractor={this.extractKey}
+          style={styles.list}
         />
       </View>
     )
@@ -84,26 +91,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f6f6ef',
-    marginTop: 20
-  },
-  list: {
-    flex: 3,
-    backgroundColor: '#f6f6ef',
-    marginTop: 20
+    padding: 20,
   },
   topSection: {
     flex: 1,
     padding: 20
   },
-  bottomSection: {
+  list: {
     flex: 3,
-    padding: 15
+    marginTop: 20,
+    backgroundColor: '#f6f6ef',
   },
-  postInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+  listItem: {
+    backgroundColor: '#f6f6ef'
   },
-  title: {
-    fontSize: 18
-  }
 })

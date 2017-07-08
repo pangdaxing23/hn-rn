@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 
-const TopSection = ({title, by, score}) => {
+const TopSection = ({title, by, score, onPress}) => {
   return (
-    <View style={styles.topSection}>
-      <Text style={styles.title}>{title}</Text>
+    <View>
+      <Text style={styles.title}
+            onPress={onPress}>{title}</Text>
       <View style={styles.postInfo}>
         <Text>{by}</Text>
         <Text>{score} points</Text>
@@ -17,10 +18,6 @@ const styles = StyleSheet.create({
   topSection: {
     flex: 1,
     padding: 20
-  },
-  bottomSection: {
-    flex: 3,
-    padding: 15
   },
   postInfo: {
     flexDirection: 'row',
