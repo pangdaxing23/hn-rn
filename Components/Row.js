@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
 
 const Row = ({title, score, comments, onPress, enabled}) => {
+  const commentsLabel = comments != 1 ? 'comments' : 'comment'
   return (
     <TouchableHighlight
       onPress={enabled ? onPress : () => {}}
@@ -17,7 +18,7 @@ const Row = ({title, score, comments, onPress, enabled}) => {
             {score} points
           </Text>
           <Text style={styles.comments}>
-            {comments} comments
+            {comments} {commentsLabel}
           </Text>
         </View>
       </View>
