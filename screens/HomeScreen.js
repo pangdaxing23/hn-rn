@@ -60,7 +60,7 @@ export default class HomeScreen extends Component {
 
   extractKey = ({id}) => id
 
-  renderItem = ({item}) => {
+  _renderItem = ({item}) => {
     const { title, score, descendants } = item
     return (
       <Row
@@ -86,7 +86,7 @@ export default class HomeScreen extends Component {
         data={posts}
         refreshing={refreshing}
         onRefresh={this._onRefresh}
-        renderItem={this.renderItem}
+        renderItem={this._renderItem}
         keyExtractor={this.extractKey}
       />
     );

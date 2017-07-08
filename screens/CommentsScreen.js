@@ -7,7 +7,6 @@ export default class CommentsScreen extends Component {
 
   constructor(props) {
     super(props)
-
     this.state = {'comments': []}
   }
 
@@ -51,7 +50,7 @@ export default class CommentsScreen extends Component {
 
   extractKey = ({id}) => id
 
-  renderItem = ({item}) => {
+  _renderItem = ({item}) => {
     return (
       <View>
       <HTMLView value={item.text} />
@@ -61,15 +60,19 @@ export default class CommentsScreen extends Component {
   }
 
   render() {
-    const item = this.props.navigation.state.params
+    const {title, by, score} = this.props.navigation.state.params
     return (
       <View style={styles.container}>
-        <TopSection item={item}
-                    style={styles.topSection}/>
+        <TopSection
+          title={title}
+          by={by}
+          score={score}
+          style={styles.topSection}
+        />
         <FlatList
           style={styles.list}
           data={this.state.comments}
-          renderItem={this.renderItem}
+          renderItem={this._renderItem}
           keyExtractor={this.extractKey}
         />
       </View>

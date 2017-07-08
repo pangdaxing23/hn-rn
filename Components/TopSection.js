@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 
-const TopSection = ({item}) => {
+const TopSection = ({title, by, score}) => {
   return (
     <View style={styles.topSection}>
-      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.title}>{title}</Text>
       <View style={styles.postInfo}>
-        <Text>{item.by}</Text>
-        <Text>{item.score} points</Text>
+        <Text>{by}</Text>
+        <Text>{score} points</Text>
       </View>
     </View>
   )
