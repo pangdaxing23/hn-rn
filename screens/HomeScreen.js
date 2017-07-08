@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FlatList, StyleSheet, Text, View, Alert } from 'react-native'
-import Row from './Row'
+import Row from '../components/Row'
 
 export default class HomeScreen extends Component {
 
@@ -16,7 +16,7 @@ export default class HomeScreen extends Component {
     }
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     this._onRefresh()
   }
 

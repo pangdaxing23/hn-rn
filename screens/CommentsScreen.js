@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, FlatList, Alert } from 'react-native'
-import TopSection from './TopSection'
+import TopSection from '../components/TopSection'
 import HTMLView from 'react-native-htmlview'
 
 export default class CommentsScreen extends Component {
@@ -11,11 +11,11 @@ export default class CommentsScreen extends Component {
     this.state = {'comments': []}
   }
 
-  static navigationOptions = ({navigation}) => ({
+  static navigationOptions = ({navigation}) => {
     title: 'Comments'
-  })
+  }
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this.fetchComments()
   }
 
