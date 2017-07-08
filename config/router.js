@@ -8,7 +8,8 @@ export const FeedStack = StackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      title: 'HN'
+      title: 'HN',
+      headerBackTitle: 'Back'
     }
   },
   Comments: {
