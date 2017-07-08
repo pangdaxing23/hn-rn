@@ -4,10 +4,6 @@ import Row from '../components/Row'
 
 export default class HomeScreen extends Component {
 
-  static navigationOptions = {
-    title: 'HN',
-  };
-
   constructor(props) {
     super(props)
     this.state = {

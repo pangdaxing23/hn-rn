@@ -11,10 +11,6 @@ export default class CommentsScreen extends Component {
     this.state = {'comments': []}
   }
 
-  static navigationOptions = ({navigation}) => {
-    title: 'Comments'
-  }
-
   async componentDidMount() {
     await this.fetchComments()
   }

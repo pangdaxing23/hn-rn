@@ -5,6 +5,16 @@ import CommentsScreen from '../screens/CommentsScreen'
 import HomeScreen from '../screens/HomeScreen'
 
 export const FeedStack = StackNavigator({
-  Home: { screen: HomeScreen },
-  Comments: { screen: CommentsScreen }
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: 'HN'
+    }
+  },
+  Comments: {
+    screen: CommentsScreen,
+    navigationOptions: {
+      title: 'Comments'
+    }
+  }
 });
