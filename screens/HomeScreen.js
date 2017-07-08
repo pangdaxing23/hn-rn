@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FlatList, StyleSheet, Text, View, Alert } from 'react-native'
 import Row from '../components/Row'
+import { fetchItem } from '../network/api'
 
 export default class HomeScreen extends Component {
 
@@ -38,7 +39,7 @@ export default class HomeScreen extends Component {
       })
       ids.forEach(async (id, i) => {
         try {
-          rows[i] = await this.fetchItem(id)
+          rows[i] = await fetchItem(id)
           this.setState((prevState) => {
             return {posts: rows}
           })

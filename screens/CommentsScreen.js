@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Comments from '../components/Comments'
+import { fetchItem } from '../network/api'
 
 export default class CommentsScreen extends Component {
 
@@ -30,7 +31,7 @@ export default class CommentsScreen extends Component {
       })
       kids.forEach(async (id, i) => {
         try {
-          comments[i] = await this.fetchComment(id)
+          comments[i] = await fetchItem(id)
           this.setState((prevState) => {
             return {comments: comments}
           })
