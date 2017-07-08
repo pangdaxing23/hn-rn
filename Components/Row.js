@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
 
-const Row = ({title, score, comments, onPress}) => {
+const Row = ({title, score, comments, onPress, enabled}) => {
   return (
     <TouchableHighlight
-      onPress={onPress}
+      onPress={enabled ? onPress : () => {}}
       underlayColor='white'
       style={styles.row}
     >

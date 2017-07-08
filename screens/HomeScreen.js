@@ -32,8 +32,8 @@ export default class HomeScreen extends Component {
         return {
           id: el,
           title: '',
-          score: '-',
-          descendants: '-'
+          score: '',
+          descendants: ''
         }
       })
       ids.forEach(async (id, i) => {
@@ -62,11 +62,13 @@ export default class HomeScreen extends Component {
 
   _renderItem = ({item}) => {
     const { title, score, descendants } = item
+    const enabled = title !== ''
     return (
       <Row
         title={title}
         score={score}
         comments={descendants}
+        enabled={enabled}
         onPress={() => this.onPressRow(item)}
       />
     )
