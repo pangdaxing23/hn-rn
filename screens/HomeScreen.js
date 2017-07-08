@@ -61,9 +61,12 @@ export default class HomeScreen extends Component {
   extractKey = ({id}) => id
 
   renderItem = ({item}) => {
+    const { title, score, descendants } = item
     return (
       <Row
-        item={item}
+        title={title}
+        score={score}
+        comments={descendants}
         onPress={() => this.onPressRow(item)}
       />
     )
