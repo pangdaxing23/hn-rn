@@ -34,7 +34,7 @@ export default class CommentsScreen extends Component {
         try {
           comments[i] = await this.fetchComment(id)
           this.setState((prevState) => {
-            return {'comments': comments}
+            return {comments: comments}
           })
         }
         catch (reason) {
@@ -53,8 +53,8 @@ export default class CommentsScreen extends Component {
   _renderItem = ({item}) => {
     return (
       <View>
-      <HTMLView value={item.text} />
-      <Text>{item.by}</Text>
+        <HTMLView value={item.text} />
+        <Text>{item.by}</Text>
       </View>
     )
   }
