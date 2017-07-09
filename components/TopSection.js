@@ -25,7 +25,7 @@ const TopSection = ({title, by, score, onPress}) => {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 18
+    fontSize: 20
   }
 })
 

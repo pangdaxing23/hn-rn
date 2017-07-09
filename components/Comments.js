@@ -31,8 +31,8 @@ const Comments = ({post, comments}) => {
     )
   }
 
-  return (
-    <View style={styles.container}>
+  renderHeader = () => {
+    return (
       <TopSection
         title={title}
         by={by}
@@ -40,10 +40,16 @@ const Comments = ({post, comments}) => {
         onPress={() => handlePressButtonAsync(url)}
         style={styles.topSection}
       />
+    )
+  }
+
+  return (
+    <View style={styles.container}>
       <FlatList
         data={comments}
         renderItem={renderItem}
         keyExtractor={extractKey}
+        ListHeaderComponent={renderHeader}
         style={styles.list}
       />
     </View>
@@ -58,16 +64,11 @@ const styles = StyleSheet.create({
   },
   topSection: {
     flex: 1,
-    padding: 20
+    padding: 20,
   },
   list: {
     flex: 3,
-    marginTop: 20,
-    backgroundColor: '#f6f6ef',
-  },
-  listItem: {
-    backgroundColor: '#f6f6ef'
-  },
+  }
 })
 
 export default Comments
