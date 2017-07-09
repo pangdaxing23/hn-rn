@@ -1,28 +1,29 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
+import { Card, CardItem, Body, Left, Right } from 'native-base'
+import { randomColor } from 'randomcolor'
 
 const TopSection = ({title, by, score, onPress}) => {
   return (
-    <View>
-      <Text style={styles.title}
-            onPress={onPress}>{title}</Text>
-      <View style={styles.postInfo}>
-        <Text>{by}</Text>
-        <Text>{score} points</Text>
-      </View>
-    </View>
+    <Card>
+      <CardItem header>
+        <Text style={styles.title}
+              onPress={onPress}>{title}
+        </Text>
+      </CardItem>
+      <CardItem footer>
+        <Left>
+          <Text style={{color: randomColor({luminosity: 'dark'})}}>{by}</Text>
+        </Left>
+        <Right>
+          <Text>{score} points</Text>
+        </Right>
+      </CardItem>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
-  topSection: {
-    flex: 1,
-    padding: 20
-  },
-  postInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
   title: {
     fontSize: 18
   }

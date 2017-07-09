@@ -1,8 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, FlatList, Alert } from 'react-native'
+import { StyleSheet, View, Text, FlatList } from 'react-native'
 import TopSection from '../components/TopSection'
 import HTMLView from 'react-native-htmlview'
 import { WebBrowser } from 'expo'
+import { Content, Card, CardItem, Body } from 'native-base'
+import { randomColor } from 'randomcolor'
 
 const Comments = ({post, comments}) => {
   const {title, by, score, url} = post
@@ -16,10 +18,16 @@ const Comments = ({post, comments}) => {
   renderItem = ({item}) => {
     const {text, by} = item
     return (
-      <View style={styles.listItem}>
-        <HTMLView value={text} />
-        <Text>{by}</Text>
-      </View>
+      <Card>
+        <CardItem header>
+          <Text style={{color: randomColor({luminosity: 'dark'})}}>{by}</Text>
+        </CardItem>
+        <CardItem>
+          <Body>
+            <HTMLView value={text} />
+          </Body>
+        </CardItem>
+      </Card>
     )
   }
 
@@ -46,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f6f6ef',
-    padding: 20,
+    padding: 10,
   },
   topSection: {
     flex: 1,

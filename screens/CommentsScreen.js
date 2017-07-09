@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Alert } from 'react-native'
 import Comments from '../components/Comments'
 import { fetchItem } from '../network/api'
 
