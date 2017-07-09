@@ -21,10 +21,6 @@ export default class HomeScreen extends Component {
     return (await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')).json()
   }
 
-  fetchItem = async (id) => {
-    return (await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)).json()
-  }
-
   fetchItems = async () => {
     try {
       let ids = await this.fetchIds()
