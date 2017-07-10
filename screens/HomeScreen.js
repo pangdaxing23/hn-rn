@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, Text, View, Alert } from 'react-native'
-import Row from '../components/Row'
+import { Alert } from 'react-native'
+import Home from '../components/Home'
 import { fetchItem } from '../network/api'
 
 export default class HomeScreen extends Component {
@@ -14,7 +14,7 @@ export default class HomeScreen extends Component {
   }
 
   async componentDidMount() {
-    this._onRefresh()
+    this.onRefresh()
   }
 
   fetchIds = async () => {
@@ -55,23 +55,7 @@ export default class HomeScreen extends Component {
     this.props.navigation.navigate('Comments', item)
   }
 
-  extractKey = ({id}) => id
-
-  _renderItem = ({item}) => {
-    const { title, score, descendants } = item
-    const enabled = title !== ''
-    return (
-      <Row
-        title={title}
-        score={score}
-        comments={descendants}
-        enabled={enabled}
-        onPress={() => this.onPressRow(item)}
-      />
-    )
-  }
-
-  _onRefresh = async () => {
+  onRefresh = async () => {
     this.setState({refreshing: true})
     await this.fetchItems()
     this.setState({refreshing: false})
@@ -80,21 +64,12 @@ export default class HomeScreen extends Component {
   render() {
     const {posts, refreshing} = this.state
     return (
-      <FlatList
-        style={styles.container}
-        data={posts}
-        refreshing={refreshing}
-        onRefresh={this._onRefresh}
-        renderItem={this._renderItem}
-        keyExtractor={this.extractKey}
+      <Home
+        posts={posts}
+        onPress={this.onPressRow}
+        refreshing={this.state.refreshing}
+        onRefresh={this.onRefresh}
       />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f6f6ef'
-  },
-})

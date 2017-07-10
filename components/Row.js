@@ -1,46 +1,48 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
+import { Card, CardItem, Body, Left, Right } from 'native-base'
 
-const Row = ({title, score, comments, onPress, enabled}) => {
+const Row = ({title, by, score, comments, onPress, enabled}) => {
   const commentsLabel = comments != 1 ? 'comments' : 'comment'
   return (
     <TouchableHighlight
       onPress={enabled ? onPress : () => {}}
       underlayColor='white'
-      style={styles.row}
     >
-      <View>
-        <Text style={styles.title}>
-          {title}
-        </Text>
-        <View style={styles.meta}>
-          <Text style={styles.score}>
-            {score} points
+      <Card>
+        <CardItem header>
+          <Text style={styles.title}>
+            {title}
           </Text>
-          <Text style={styles.comments}>
-            {comments} {commentsLabel}
-          </Text>
-        </View>
-      </View>
+        </CardItem>
+        <CardItem footer>
+          <Left>
+            <Text style={styles.score}>
+              {score} points
+            </Text>
+          </Left>
+          <Body>
+            <Text style={styles.by}>
+              {by}
+            </Text>
+          </Body>
+          <Right>
+            <Text style={styles.comments}>
+              {comments} {commentsLabel}
+            </Text>
+          </Right>
+        </CardItem>
+      </Card>
     </TouchableHighlight>
   )
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: 80,
-    padding: 15,
-    marginBottom: 5,
-    backgroundColor: '#ffa970',
-  },
   title: {
     fontSize: 12,
   },
-  meta: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  by: {
+    fontSize: 10
   },
   score: {
     fontSize: 10,
