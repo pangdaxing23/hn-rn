@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native'
 import { Card, CardItem, Body, Left, Right } from 'native-base'
 import { randomColor } from 'randomcolor'
 
 const TopSection = ({title, by, score, onPress}) => {
   return (
     <Card>
-      <CardItem header>
-        <Text style={styles.title}
-              onPress={onPress}>{title}
-        </Text>
-      </CardItem>
+      <TouchableHighlight
+        onPress={onPress}
+        underlayColor='white'
+      >
+        <CardItem header>
+          <Text style={styles.title}>
+            {title}
+          </Text>
+        </CardItem>
+      </TouchableHighlight>
       <CardItem footer>
         <Left>
           <Text style={{color: randomColor({luminosity: 'dark'})}}>{by}</Text>
