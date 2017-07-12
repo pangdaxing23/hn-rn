@@ -13,7 +13,6 @@ export default class HomeScreen extends Component {
       ids: [],
       posts: [],
       refreshing: false,
-      postIds: [],
       lastIndex: 0
     }
   }
@@ -22,7 +21,7 @@ export default class HomeScreen extends Component {
     this.onRefresh()
   }
 
-  fetchIds = async () => {
+  fetchTop = async () => {
     return (await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')).json()
   }
 
@@ -30,8 +29,11 @@ export default class HomeScreen extends Component {
     try {
       let {ids, lastIndex} = this.state
       if (ids.length === 0) {
-        ids = await this.fetchIds()
+        ids = await this.fetchTop()
         this.setState({ ids })
+      }
+      if (lastIndex >= ids.length) {
+        return
       }
       let chunkIds = ids.slice(lastIndex, lastIndex + CHUNK_SIZE)
       this.setState({
@@ -39,7 +41,7 @@ export default class HomeScreen extends Component {
       })
 
       let nextPosts = await Promise.all(chunkIds.map(async (id, i) => {
-        return await fetchItem(id)
+        return fetchItem(id)
       }))
 
       this.setState(prevState => {

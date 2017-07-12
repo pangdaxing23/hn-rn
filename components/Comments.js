@@ -6,7 +6,7 @@ import { WebBrowser } from 'expo'
 import { Content, Card, CardItem, Body } from 'native-base'
 import { randomColor } from 'randomcolor'
 
-const Comments = ({post, comments}) => {
+const Comments = ({post, comments, loadMore}) => {
   const {title, by, score, url} = post
 
   handlePressButtonAsync = async (url) => {
@@ -49,6 +49,9 @@ const Comments = ({post, comments}) => {
         data={comments}
         renderItem={renderItem}
         keyExtractor={extractKey}
+        initialNumToRender={3}
+        onEndReached={loadMore}
+        onEndThreshold={5}
         ListHeaderComponent={renderHeader}
         style={styles.list}
       />
