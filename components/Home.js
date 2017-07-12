@@ -2,7 +2,7 @@ import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import Row from '../components/Row'
 
-const Home = ({posts, onPress, refreshing, onRefresh}) => {
+const Home = ({posts, onPress, refreshing, onRefresh, loadMore}) => {
 
   extractKey = ({id}) => id
 
@@ -25,8 +25,11 @@ const Home = ({posts, onPress, refreshing, onRefresh}) => {
     <FlatList
       style={styles.container}
       data={posts}
+      initialNumToRender={8}
       refreshing={refreshing}
       onRefresh={onRefresh}
+      onEndReached={loadMore}
+      onEndThreshold={5}
       renderItem={renderItem}
       keyExtractor={extractKey}
     />

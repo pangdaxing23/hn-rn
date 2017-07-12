@@ -3,17 +3,22 @@ import { Alert } from 'react-native'
 import Home from '../components/Home'
 import { fetchItem } from '../network/api'
 
+const CHUNK_SIZE = 10
+
 export default class HomeScreen extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
+      ids: [],
       posts: [],
-      refreshing: false
+      refreshing: false,
+      postIds: [],
+      lastIndex: 0
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.onRefresh()
   }
 
@@ -23,28 +28,23 @@ export default class HomeScreen extends Component {
 
   fetchItems = async () => {
     try {
-      let ids = await this.fetchIds()
-      // fill rows with objects with incrementing ids
-      let rows = [...Array(500).keys()].map(el => {
-        return {
-          id: el,
-          title: '',
-          score: '',
-          descendants: ''
-        }
+      let {ids, lastIndex} = this.state
+      if (ids.length === 0) {
+        ids = await this.fetchIds()
+        this.setState({ ids })
+      }
+      let chunkIds = ids.slice(lastIndex, lastIndex + CHUNK_SIZE)
+      this.setState({
+        lastIndex: lastIndex + CHUNK_SIZE
       })
-      ids.forEach(async (id, i) => {
-        try {
-          rows[i] = await fetchItem(id)
-          this.setState((prevState) => {
-            return {posts: rows}
-          })
-        }
-        catch (reason) {
-          Alert.alert(reason.message)
-        }
+
+      let nextPosts = await Promise.all(chunkIds.map(async (id, i) => {
+        return await fetchItem(id)
+      }))
+
+      this.setState(prevState => {
+        return {posts: [...this.state.posts, ...nextPosts]}
       })
-      return rows
     }
     catch (reason) {
       Alert.alert(reason.message)
@@ -69,6 +69,7 @@ export default class HomeScreen extends Component {
         onPress={this.onPressRow}
         refreshing={this.state.refreshing}
         onRefresh={this.onRefresh}
+        loadMore={this.fetchItems}
       />
     );
   }
