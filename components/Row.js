@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableHighlight} from 'react-native'
-import { Card, CardItem, Body, Left, Right } from 'native-base'
-import { randomColor } from 'randomcolor'
+import { Card, CardItem, Left, Right } from 'native-base'
+import randomColor from 'randomcolor'
+import moment from 'moment'
 
 export default class Row extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class Row extends Component {
   userColor = {color: randomColor({luminosity: 'dark'})}
 
   render() {
-    const {title, index, by, score, comments, onPress, enabled} = this.props
+    const {title, index, by, time, score, comments, onPress, enabled} = this.props
     const commentsLabel = comments != 1 ? 'comments' : 'comment'
     return (
       <TouchableHighlight
@@ -32,15 +33,20 @@ export default class Row extends Component {
           </CardItem>
           <CardItem footer>
             <Left>
+              <View style={styles.left}>
+                <Text style={[styles.by, this.userColor]}>
+                  {by}
+                </Text>
+                <Text style={styles.by}>
+                  {moment.unix(time).fromNow()}
+                </Text>
+              </View>
+            </Left>
+            <View style={{alignItems: 'center'}}>
               <Text style={styles.score}>
                 {score} points
               </Text>
-            </Left>
-            <Body>
-              <Text style={[styles.by, this.userColor]}>
-                {by}
-              </Text>
-            </Body>
+            </View>
             <Right>
               <Text style={styles.comments}>
                 {comments} {commentsLabel}
@@ -68,11 +74,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingRight: 35
   },
+  left: {
+    flexDirection: 'column'
+  },
   by: {
     fontSize: 12
   },
   score: {
-    fontSize: 12,
+    fontSize: 12
   },
   comments: {
     fontSize: 12,

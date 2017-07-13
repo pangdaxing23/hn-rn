@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableHighlight } from 'react-native'
 import { Card, CardItem, Left, Right } from 'native-base'
 import { randomColor } from 'randomcolor'
+import moment from 'moment'
 
 export default class TopSection extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class TopSection extends Component {
   userColor = {color: randomColor({luminosity: 'dark'})}
 
   render() {
-    const {title, by, score, onPress} = this.props
+    const {title, by, time, score, onPress} = this.props
     return (
       <Card>
         <TouchableHighlight
@@ -26,9 +27,15 @@ export default class TopSection extends Component {
           </CardItem>
         </TouchableHighlight>
         <CardItem footer>
-          <Left>
-            <Text style={[this.userColor, styles.username]}>{by}</Text>
-          </Left>
+        <Left>
+          <Text style={[styles.by, this.userColor]}>
+            {by}
+            <Text style={styles.time}>
+              {' '}{moment.unix(time).fromNow()}
+            </Text>
+          </Text>
+
+        </Left>
           <Right>
             <Text>{score} points</Text>
           </Right>
@@ -44,5 +51,8 @@ const styles = StyleSheet.create({
   },
   username: {
     fontWeight: 'bold'
+  },
+  time: {
+    fontWeight: '300'
   }
 })

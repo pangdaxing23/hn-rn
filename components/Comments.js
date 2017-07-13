@@ -5,7 +5,7 @@ import TopSection from './TopSection'
 import Comment from './Comment'
 
 const Comments = ({post, comments, loadMore}) => {
-  const {title, by, score, url} = post
+  const {title, by, time, score, url} = post
 
   handlePressButtonAsync = async (url) => {
     let result = await WebBrowser.openBrowserAsync(url);
@@ -26,6 +26,7 @@ const Comments = ({post, comments, loadMore}) => {
       <TopSection
         title={title}
         by={by}
+        time={time}
         score={score}
         onPress={() => handlePressButtonAsync(url)}
         style={styles.topSection}
