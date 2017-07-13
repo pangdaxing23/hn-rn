@@ -22,6 +22,9 @@ export default class CommentsScreen extends Component {
   fetchComments = async () => {
     try {
       let {kids, descendants} = this.props.navigation.state.params
+      if (!kids) {
+        return
+      }
       let {lastIndex} = this.state
       let chunkIds = kids.slice(lastIndex, Math.min(lastIndex + CHUNK_SIZE, kids.length))
       this.setState({

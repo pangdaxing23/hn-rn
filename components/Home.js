@@ -6,11 +6,12 @@ const Home = ({posts, onPress, refreshing, onRefresh, loadMore}) => {
 
   extractKey = ({id}) => id
 
-  renderItem = ({item}) => {
+  renderItem = ({item, index}) => {
     const { title, by, score, descendants } = item
     const enabled = title !== ''
     return (
       <Row
+        index={index}
         title={title}
         by={by}
         score={score}
