@@ -28,7 +28,7 @@ export default class TopSection extends Component {
         </TouchableHighlight>
         <CardItem footer>
         <Left>
-          <Text style={[styles.by, this.userColor]}>
+          <Text style={[styles.username, this.userColor]}>
             {by}
             <Text style={styles.time}>
               {' '}{moment.unix(time).fromNow()}
