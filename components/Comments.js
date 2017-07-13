@@ -38,11 +38,11 @@ const Comments = ({post, comments, loadMore}) => {
       <FlatList
         data={comments}
         renderItem={renderItem}
+        ListHeaderComponent={renderHeader}
         keyExtractor={extractKey}
         initialNumToRender={3}
         onEndReached={loadMore}
         onEndThreshold={5}
-        ListHeaderComponent={renderHeader}
         style={styles.list}
       />
     </View>
