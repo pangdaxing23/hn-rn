@@ -23,7 +23,7 @@ export default class Row extends Component {
           <CardItem header>
             <Left>
               <View style={[styles.index, {borderColor: this.userColor.color}]}>
-                <Text>{index}</Text>
+                <Text>{index + 1}</Text>
               </View>
               <Text style={styles.title}>
                 {title}
