@@ -1,10 +1,8 @@
 import React from 'react'
-import { StyleSheet, View, Text, FlatList } from 'react-native'
-import TopSection from '../components/TopSection'
-import HTMLView from 'react-native-htmlview'
+import { StyleSheet, FlatList, View } from 'react-native'
 import { WebBrowser } from 'expo'
-import { Content, Card, CardItem, Body } from 'native-base'
-import { randomColor } from 'randomcolor'
+import TopSection from './TopSection'
+import Comment from './Comment'
 
 const Comments = ({post, comments, loadMore}) => {
   const {title, by, score, url} = post
@@ -16,18 +14,10 @@ const Comments = ({post, comments, loadMore}) => {
   extractKey = ({id}) => id
 
   renderItem = ({item}) => {
-    const {text, by} = item
     return (
-      <Card>
-        <CardItem header>
-          <Text style={{color: randomColor({luminosity: 'dark'})}}>{by}</Text>
-        </CardItem>
-        <CardItem>
-          <Body>
-            <HTMLView value={text} />
-          </Body>
-        </CardItem>
-      </Card>
+      <Comment
+        item={item}
+      />
     )
   }
 

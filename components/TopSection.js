@@ -1,37 +1,48 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native'
-import { Card, CardItem, Body, Left, Right } from 'native-base'
+import { StyleSheet, Text, TouchableHighlight } from 'react-native'
+import { Card, CardItem, Left, Right } from 'native-base'
 import { randomColor } from 'randomcolor'
 
-const TopSection = ({title, by, score, onPress}) => {
-  return (
-    <Card>
-      <TouchableHighlight
-        onPress={onPress}
-        underlayColor='white'
-      >
-        <CardItem header>
-          <Text style={styles.title}>
-            {title}
-          </Text>
+export default class TopSection extends Component {
+  constructor(props) {
+     super(props)
+  }
+
+  // this is why this component needs to be a class
+  userColor = {color: randomColor({luminosity: 'dark'})}
+
+  render() {
+    const {title, by, score, onPress} = this.props
+    return (
+      <Card>
+        <TouchableHighlight
+          onPress={onPress}
+          underlayColor='white'
+        >
+          <CardItem header>
+            <Text style={styles.title}>
+              {title}
+            </Text>
+          </CardItem>
+        </TouchableHighlight>
+        <CardItem footer>
+          <Left>
+            <Text style={[this.userColor, styles.username]}>{by}</Text>
+          </Left>
+          <Right>
+            <Text>{score} points</Text>
+          </Right>
         </CardItem>
-      </TouchableHighlight>
-      <CardItem footer>
-        <Left>
-          <Text style={{color: randomColor({luminosity: 'dark'})}}>{by}</Text>
-        </Left>
-        <Right>
-          <Text>{score} points</Text>
-        </Right>
-      </CardItem>
-    </Card>
-  )
+      </Card>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   title: {
     fontSize: 20
+  },
+  username: {
+    fontWeight: 'bold'
   }
 })
-
-export default TopSection
