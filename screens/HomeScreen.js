@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import Home from '../components/Home'
-import { fetchItem } from '../network/api'
+import { fetchIds, fetchItem } from '../network/api'
 
 const CHUNK_SIZE = 10
 
@@ -21,15 +21,11 @@ export default class HomeScreen extends Component {
     this.onRefresh()
   }
 
-  fetchTop = async () => {
-    return (await fetch('https://hacker-news.firebaseio.com/v0/topstories.json')).json()
-  }
-
   fetchItems = async () => {
     try {
       let {ids, lastIndex} = this.state
       if (ids.length === 0) {
-        ids = await this.fetchTop()
+        ids = await fetchIds(this.props.screenProps.section)
         this.setState({ ids })
       }
       if (lastIndex >= ids.length) {
