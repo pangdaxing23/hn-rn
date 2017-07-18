@@ -7,12 +7,9 @@ const CHUNK_SIZE = 10
 
 export default class CommentsScreen extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      comments: [],
-      lastIndex: 0
-    }
+  state = {
+    comments: [],
+    lastIndex: 0
   }
 
   async componentDidMount() {

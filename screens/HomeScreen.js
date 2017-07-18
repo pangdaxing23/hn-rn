@@ -6,15 +6,11 @@ import { fetchIds, fetchItem } from '../network/api'
 const CHUNK_SIZE = 10
 
 export default class HomeScreen extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      ids: [],
-      posts: [],
-      refreshing: false,
-      lastIndex: 0
-    }
+  state = {
+    ids: [],
+    posts: [],
+    refreshing: false,
+    lastIndex: 0
   }
 
   componentDidMount() {

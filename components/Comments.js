@@ -13,6 +13,14 @@ const Comments = ({post, comments, loadMore}) => {
 
   extractKey = ({id}) => id
 
+  renderEmpty = () => {
+    return (
+      <Text style={styles.empty}>
+        No comments yet!
+      </Text>
+    )
+  }
+
   renderItem = ({item}) => {
     return (
       <Comment
@@ -44,6 +52,7 @@ const Comments = ({post, comments, loadMore}) => {
         initialNumToRender={3}
         onEndReached={loadMore}
         onEndThreshold={5}
+        ListEmptyComponent={renderEmpty}
         style={styles.list}
       />
     </View>
@@ -62,6 +71,9 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 3,
+  },
+  empty: {
+    fontSize: 20
   }
 })
 
