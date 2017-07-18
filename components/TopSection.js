@@ -5,9 +5,6 @@ import { randomColor } from 'randomcolor'
 import moment from 'moment'
 
 export default class TopSection extends Component {
-  constructor(props) {
-     super(props)
-  }
 
   // this is why this component needs to be a class
   userColor = {color: randomColor({luminosity: 'dark'})}

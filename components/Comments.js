@@ -8,7 +8,7 @@ const Comments = ({post, comments, loadMore}) => {
   const {title, by, time, score, url} = post
 
   handlePressButtonAsync = async (url) => {
-    let result = await WebBrowser.openBrowserAsync(url);
+    let result = await WebBrowser.openBrowserAsync(url)
   }
 
   extractKey = ({id}) => id
